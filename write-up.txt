@@ -1,0 +1,32 @@
+For my project the original plan was to record various statistics about the bitcoin network, plot some graphs,
+and discuss the results. Unfortunatley I didn't have enough time to obtain enough data points that would actually be
+interesting to look at. As a result I decided to compute some live statistics and create a way to visualize unconfirmed
+transactions as they are broadcast to the network. 
+
+First, the live stats I computed both average transaction value and transactions per second.
+I chose these two because I think they are the most important, and the most indicitave to how 
+the network is being used. Most tx/sec stats are computed by calculating the number of transactions
+in a block and the time since the last block. While this is correctly computing how many transactions 
+are accepted into the blockchain over a period of time, it is not accuratley showing how often people
+are sending transactions. That's why I went with unconfirmed transactions. Also if I were to run this simulation
+longer and began saving the information I could start to see some other interesting stats like what time of day 
+the network usage is the highgest and in what regions.
+
+To compute these stats the only outside information I needed was the unconfirmed transactions. This was achieved by utilizing blockchain.info's 
+bitcoin websocket. Once connected to it, I receive a steady stream of transactions as they occur. From these transactions I can extract the information
+im interested in, such as the hash, the number of inputs, number of outputs, and total value.
+
+The main part of my project, at least the most entertaining to watch, is the visualizer. Essentially each time that 
+a new transaction comes across the network a circle is created, with a radius and color dictated by the value of the transaction.
+To actually program this visualizer I utilized the d3 framework. This framework is a common one used for making vivid graphs or charts or really any visual entity.
+The simulation I create with d3 is a canvas area that houses the circles, each circle has its own physics attached to it, causing them to push eachother away
+and make new space for the new transactions. They also bounce off one another! I also made it so when you hover over a transaction you can see basic information like 
+hash, total value, number of inputs and number of outputs. If you click on any of the circles a new tab will be opened to the blockchain.info page for that particular 
+transaction, there you will find more in depth information and other ways of visualizing the transaction. Also pressing start and stop do exactly what they sound like.
+It should be noted that if you press stop the simulation will be halted but the computation of the tx/sec will not. This is due to the fact that I am using javascripts
+setInterval function to have the computeTxPerSec() be run every three seconds.
+
+I found this exercise to be quite fun and I think it could be used as a helpful tool to try and explain to people how bitcoin works. Further additions I would like to make
+would be creating concentric rings around each circle, green rings for each input and red for each output. The colors aren't important, but I think this would help further show
+how everything is working. I also would like to implement some visualization of the blocks themselves. Removing circles when that particular unspent transaction is included in a block,
+and having a chain of blocks appear at the bottom.

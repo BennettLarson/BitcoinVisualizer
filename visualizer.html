@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Realtime Bitcoin Transactions</title>
+
+  <link rel="stylesheet" href="./styles.css?v=1.0">
+
+</head>
+
+<body>
+  <div>
+    <button onclick='start()'>Start</button>
+    <button onclick='stop()'>Stop</button>
+  </div>
+  <div style='width:50%;float:left;'>  
+    <p id="status">Not connected</p> 
+    <p id="txHash">Latest Transaction:</p> 
+    <p id="avgTxVal">Average Tx Value: 0</p>
+    <p id="txPerSec">Tx/Sec: 0</p>
+    <svg width="800" height="800" id="canvas" class="vizCanvas"></svg>
+  </div>
+
+  
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
